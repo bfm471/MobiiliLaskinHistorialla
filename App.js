@@ -8,7 +8,7 @@ export default function App() {
     second: '',
   });
   const [result, setResult] = useState('');
-  const [computations, setComputations] = useState([]);
+  const [calculations, setCalculations] = useState([]);
   const inputFocus = useRef(null);
   let localResult;
 
@@ -29,7 +29,7 @@ export default function App() {
   }
 
   const addToList = (operator) => {
-    setComputations([`${numbers.first} ${operator} ${numbers.second} = ${localResult}`, ...computations])
+    setCalculations([`${numbers.first} ${operator} ${numbers.second} = ${localResult}`, ...calculations])
     setNumbers({});
     inputFocus.current.focus();
   }
@@ -66,8 +66,10 @@ export default function App() {
       </View>
       <View style={styles.listcontainer}>
         <FlatList 
-          data={computations}
+          data={calculations}
           renderItem={({item}) => <Text style={styles.list}>{item}</Text>}
+          ListHeaderComponent={<Text style={styles.listheader}>History</Text>}
+          ListEmptyComponent={<Text>No calculations yet...</Text>}
         />
       </View>
       <StatusBar style="auto" />
@@ -117,4 +119,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 3,
   },
+  listheader: {
+    fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 10,
+  }
 });
